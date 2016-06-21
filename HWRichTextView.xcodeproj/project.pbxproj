@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F0421481C5F6E770094474C /* HWMatchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0421461C5F6E770094474C /* HWMatchResult.swift */; };
+		8F0421491C5F6E770094474C /* HWRichTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0421471C5F6E770094474C /* HWRichTextView.swift */; };
+		8F4573011C5F5D720096977D /* HWTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4573001C5F5D720096977D /* HWTestVC.swift */; };
 		8F99B23D1C589E56002D5BF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F99B23C1C589E56002D5BF0 /* AppDelegate.swift */; };
 		8F99B23F1C589E56002D5BF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F99B23E1C589E56002D5BF0 /* ViewController.swift */; };
 		8F99B2421C589E56002D5BF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F99B2401C589E56002D5BF0 /* Main.storyboard */; };
@@ -34,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8F0421461C5F6E770094474C /* HWMatchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWMatchResult.swift; sourceTree = "<group>"; };
+		8F0421471C5F6E770094474C /* HWRichTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWRichTextView.swift; sourceTree = "<group>"; };
+		8F4573001C5F5D720096977D /* HWTestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWTestVC.swift; sourceTree = "<group>"; };
 		8F99B2391C589E56002D5BF0 /* HWRichTextView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWRichTextView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F99B23C1C589E56002D5BF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F99B23E1C589E56002D5BF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +80,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F0421451C5F6E770094474C /* HWRichTextView-Swift */ = {
+			isa = PBXGroup;
+			children = (
+				8F0421461C5F6E770094474C /* HWMatchResult.swift */,
+				8F0421471C5F6E770094474C /* HWRichTextView.swift */,
+			);
+			path = "HWRichTextView-Swift";
+			sourceTree = "<group>";
+		};
 		8F99B2301C589E55002D5BF0 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +114,8 @@
 			children = (
 				8F99B23C1C589E56002D5BF0 /* AppDelegate.swift */,
 				8F99B23E1C589E56002D5BF0 /* ViewController.swift */,
+				8F4573001C5F5D720096977D /* HWTestVC.swift */,
+				8F0421451C5F6E770094474C /* HWRichTextView-Swift */,
 				8F99B2401C589E56002D5BF0 /* Main.storyboard */,
 				8F99B2431C589E56002D5BF0 /* Assets.xcassets */,
 				8F99B2451C589E56002D5BF0 /* LaunchScreen.storyboard */,
@@ -256,8 +273,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F0421491C5F6E770094474C /* HWRichTextView.swift in Sources */,
 				8F99B23F1C589E56002D5BF0 /* ViewController.swift in Sources */,
+				8F0421481C5F6E770094474C /* HWMatchResult.swift in Sources */,
 				8F99B23D1C589E56002D5BF0 /* AppDelegate.swift in Sources */,
+				8F4573011C5F5D720096977D /* HWTestVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +502,7 @@
 				8F99B2631C589E56002D5BF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F99B2641C589E56002D5BF0 /* Build configuration list for PBXNativeTarget "HWRichTextViewTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +511,7 @@
 				8F99B2661C589E56002D5BF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F99B2671C589E56002D5BF0 /* Build configuration list for PBXNativeTarget "HWRichTextViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +520,7 @@
 				8F99B2691C589E56002D5BF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
