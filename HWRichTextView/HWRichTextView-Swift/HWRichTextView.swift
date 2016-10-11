@@ -202,11 +202,12 @@ class HWRichTextView: UIView,UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let range = textView.selectedRange
         //这两句可以得到当前高亮选择的字（就是中文输入状态下，英文被选中的那个状态）
-        let selectRange = textView.markedTextRange
-        let position = textView.position(from: (selectRange?.start)!, offset: 0)
-        if position != nil {
-            textView.attributedText = attributeTextWithText(textView.text)
-        }
+//        let selectRange = textView.markedTextRange
+//        let position = textView.position(from: (selectRange?.start)!, offset: 0)
+//        if position != nil {
+//            textView.attributedText = attributeTextWithText(textView.text)
+//        }
+        textView.attributedText = attributeTextWithText(textView.text)
         textView.selectedRange = range
     }
     //MARK:富文本区域点击
