@@ -14,21 +14,21 @@ class ViewController: UIViewController,HWRichtTextDelegate{
         super.viewDidLoad()
         let richText = HWRichTextView()
         richText.text = "屌得飞起:危旧房屋@好友的名字老长了， 金额放假啊放假啊http://baidu.com是一个好网站一二三文啊饿啊饿啊我 屌得飞起:长的飞起"
-        richText.normalColor = UIColor.greenColor()
-        richText.attributeColor = UIColor.blueColor()
-        richText.highlightColor = UIColor.blueColor()
+        richText.normalColor = UIColor.green
+        richText.attributeColor = UIColor.blue
+        richText.highlightColor = UIColor.blue
         richText.niceName = "屌得飞起:"
         richText.inputMode = false
-        richText.niceColor = UIColor.redColor()
+        richText.niceColor = UIColor.red
         richText.delegate = self
 //        richText.font = UIFont.systemFontOfSize(17)
         richText.frame = CGRect(x: 0, y: 200, width: 300, height: 300)
-        richText.backgroundColor = UIColor.lightGrayColor()
+        richText.backgroundColor = UIColor.lightGray
         view.addSubview(richText)
         
-        let testv = UITextView(frame: CGRectMake(0, 100, 300, 200))
+        let testv = UITextView(frame: CGRect(x: 0, y: 100, width: 300, height: 200))
         testv.text = "我擦！！！！！"
-        testv.backgroundColor = UIColor.redColor()
+        testv.backgroundColor = UIColor.red
 //        view.addSubview(testv)
     }
     
@@ -38,16 +38,16 @@ class ViewController: UIViewController,HWRichtTextDelegate{
     }
 
     //MARK: HWRichTextViewDelegate
-    func urlClick(url: String) {
+    func urlClick(_ url: String) {
 //        let vc = HWTestVC()
 //        vc.url = url
 //        navigationController?.pushViewController(vc, animated: true)
         print("点击了网址：\(url)")
     }
-    func niceNameClick(niceName: String) {
+    func niceNameClick(_ niceName: String) {
         print("点击了昵称是：\(niceName)")
     }
-    func atFunction(at: String) {
+    func atFunction(_ at: String) {
         print("艾特了这个人：\(at)")
     }
 }

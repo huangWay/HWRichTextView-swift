@@ -13,7 +13,7 @@ class HWTestVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let webView = UIWebView(frame: view.bounds)
-        let request = NSURLRequest(URL: NSURL(string: url!)!)
+        let request = URLRequest(url: URL(string: url!)!)
         webView.loadRequest(request)
         view.addSubview(webView)
     }

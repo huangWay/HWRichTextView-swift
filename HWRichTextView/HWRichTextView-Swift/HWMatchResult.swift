@@ -31,7 +31,7 @@ class HWStringMatch {
     /// 匹配类型
     var matchType:String
     static let instance = HWStringMatch()
-    private init(){
+    fileprivate init(){
         matchType = ""
     }
     /**
@@ -42,10 +42,10 @@ class HWStringMatch {
      
      - returns: HWMatchResult类型的数组
      */
-    func matchSpecialStringInOriginalString(specialString:String,orginalString:String) -> [HWMatchResult] {
+    func matchSpecialStringInOriginalString(_ specialString:String,orginalString:String) -> [HWMatchResult] {
         var mutArr = [HWMatchResult]()
         if specialString.characters.count > 0{
-            let range = (specialString as NSString).rangeOfString(specialString)
+            let range = (specialString as NSString).range(of: specialString)
             if range.length > 0 {
                 let result = HWMatchResult()
                 result.range = range
@@ -64,17 +64,17 @@ class HWStringMatch {
      
      - returns: HWMatchResult类型的数组
      */
-    func matchStringWithPattern(string:String,pattern:String) -> [HWMatchResult] {
+    func matchStringWithPattern(_ string:String,pattern:String) -> [HWMatchResult] {
         
         do {
-            let express = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
-            let results = express.matchesInString(string, options: NSMatchingOptions.ReportCompletion, range: NSMakeRange(0, string.characters.count))
+            let express = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
+            let results = express.matches(in: string, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, string.characters.count))
             var resultM = [HWMatchResult]()
             for result in results {
                 let matchRes = HWMatchResult()
                 matchRes.range = result.range
                 let str = string as NSString
-                matchRes.cutStr = str.substringWithRange(result.range)
+                matchRes.cutStr = str.substring(with: result.range)
                 matchRes.matchType = matchType
                 resultM.append(matchRes)
             }
@@ -92,7 +92,7 @@ class HWStringMatch {
      
      - returns: 未被匹配的NSString数组
      */
-    func seperateStringWithPattern(string:String,pattern:String) -> [HWMatchResult] {
+    func seperateStringWithPattern(_ string:String,pattern:String) -> [HWMatchResult] {
         let matchresults = matchStringWithPattern(string, pattern: pattern)
         var nomatches = [HWMatchResult]()
         let str = string as NSString
@@ -103,13 +103,13 @@ class HWStringMatch {
             nomatch.matchType = matchType
             nomatches.append(nomatch)
         }
-        for var index = 0;index < matchresults.count;index++ {
+        for index in 0 ..< matchresults.count {
             let subMatch = matchresults[index]
             if index == 0 {
                 if subMatch.range.location != 0 {
                     let noMatch = HWMatchResult()
                     noMatch.range = subMatch.range
-                    noMatch.cutStr = str.substringWithRange(subMatch.range)
+                    noMatch.cutStr = str.substring(with: subMatch.range)
                     noMatch.matchType = matchType
                     nomatches.append(noMatch)
                 }
@@ -120,7 +120,7 @@ class HWStringMatch {
                 if subMatch.range.location != endPosition {
                     let noMatch = HWMatchResult()
                     noMatch.range = NSMakeRange(endPosition, subMatch.range.location - endPosition)
-                    noMatch.cutStr = str.substringWithRange(noMatch.range)
+                    noMatch.cutStr = str.substring(with: noMatch.range)
                     noMatch.matchType = matchType
                     nomatches.append(noMatch)
                 }
@@ -130,7 +130,7 @@ class HWStringMatch {
                 if endP != string.characters.count {
                     let noMatch = HWMatchResult()
                     noMatch.range = NSMakeRange(endP, string.characters.count - endP)
-                    noMatch.cutStr = str.substringWithRange(noMatch.range)
+                    noMatch.cutStr = str.substring(with: noMatch.range)
                     noMatch.matchType = matchType
                     nomatches.append(noMatch)
                 }

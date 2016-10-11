@@ -12,31 +12,31 @@ protocol HWRichtTextDelegate:NSObjectProtocol {
     /**
      url点击
      */
-    func urlClick(url:String)
+    func urlClick(_ url:String)
     /**
      @点击
      */
-    func atFunction(at:String)
+    func atFunction(_ at:String)
     /**
      话题点击
      */
-    func topicClick(topic:String)
+    func topicClick(_ topic:String)
     /**
      昵称点击
      */
-    func niceNameClick(niceName:String)
+    func niceNameClick(_ niceName:String)
 }
 extension HWRichtTextDelegate {
-    func urlClick(url:String) {
+    func urlClick(_ url:String) {
         print("urlClick:\(url)")
     }
-    func atFunction(at:String) {
+    func atFunction(_ at:String) {
         print("atFunction:\(at)")
     }
-    func topicClick(topic:String) {
+    func topicClick(_ topic:String) {
         print("topicClick:\(topic)")
     }
-    func niceNameClick(niceName:String) {
+    func niceNameClick(_ niceName:String) {
         print("niceNameClick:\(niceName)")
     }
 }
@@ -51,45 +51,45 @@ enum HWRichTextType {
 class HWRichTextView: UIView,UITextViewDelegate {
     weak var delegate:HWRichtTextDelegate?
     /// 选中区域高亮的颜色
-    var highlightColor:UIColor = UIColor.clearColor()
+    var highlightColor:UIColor = UIColor.clear
     /// 文本
     var text:String = ""
     /// 富文本的颜色
-    var attributeColor:UIColor = UIColor.clearColor()
+    var attributeColor:UIColor = UIColor.clear
     /// 普通文本的颜色
-    var normalColor:UIColor = UIColor.clearColor()
+    var normalColor:UIColor = UIColor.clear
     /// 字体
-    var font:UIFont = UIFont.systemFontOfSize(17)
+    var font:UIFont = UIFont.systemFont(ofSize: 17)
     /// 是不是输入模式，使用的时候一定要赋值，
     var inputMode:Bool = false {
         didSet {
-            textView.scrollEnabled = inputMode
-            textView.userInteractionEnabled = inputMode
-            textView.editable = inputMode
+            textView.isScrollEnabled = inputMode
+            textView.isUserInteractionEnabled = inputMode
+            textView.isEditable = inputMode
         }
     }
     /// 昵称
     var niceName:String = ""
     /// 昵称的颜色
-    var niceColor:UIColor = UIColor.clearColor()
+    var niceColor:UIColor = UIColor.clear
     
-    private lazy var selectable = [HWMatchResult]()
-    private var textView:UITextView = UITextView()
-    private lazy var backgrounds = [UIView]()
-    private let url:String = "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)"
-    private let atfunc = "(@[^\\s]{1,}\\s)|(@[^\\s]{1,}$)"
-    private let topic = "#[^#]+#"
+    fileprivate lazy var selectable = [HWMatchResult]()
+    fileprivate var textView:UITextView = UITextView()
+    fileprivate lazy var backgrounds = [UIView]()
+    fileprivate let url:String = "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)"
+    fileprivate let atfunc = "(@[^\\s]{1,}\\s)|(@[^\\s]{1,}$)"
+    fileprivate let topic = "#[^#]+#"
     
     //MARK: init
     override init(frame: CGRect) {
         super.init(frame: frame)
         prepareUI()
     }
-    private func prepareUI() {
-        textView.backgroundColor = UIColor.clearColor()
+    fileprivate func prepareUI() {
+        textView.backgroundColor = UIColor.clear
         textView.textContainerInset = UIEdgeInsetsMake(0, -5, 0, -5)
         textView.delegate = self
-        textView.autocapitalizationType = UITextAutocapitalizationType.None
+        textView.autocapitalizationType = UITextAutocapitalizationType.none
         self.addSubview(textView)
     }
     required init?(coder aDecoder: NSCoder) {
@@ -102,7 +102,7 @@ class HWRichTextView: UIView,UITextViewDelegate {
         textView.attributedText = attributeTextWithText(text)
     }
     //MARK: private 方法
-    private func attributeTextWithText(text:String) -> NSAttributedString {
+    fileprivate func attributeTextWithText(_ text:String) -> NSAttributedString {
         if text.characters.count > 0 {
             let result = attributeTextAfterEmotionWithText(text)
             let attrM = NSMutableAttributedString(attributedString: result)
@@ -122,7 +122,7 @@ class HWRichTextView: UIView,UITextViewDelegate {
      
      - returns: 转化以后的富文本
      */
-    private func attributeTextAfterEmotionWithText(text:String) -> NSAttributedString {
+    fileprivate func attributeTextAfterEmotionWithText(_ text:String) -> NSAttributedString {
         let strMatch = HWStringMatch.instance
         var mutArr = [HWMatchResult]()
         strMatch.matchType = "emoji"
@@ -130,9 +130,9 @@ class HWRichTextView: UIView,UITextViewDelegate {
         let emojis = strMatch.matchStringWithPattern(text, pattern: emojiPattern)
         strMatch.matchType = "notemoji"
         let noemojis = strMatch.seperateStringWithPattern(text, pattern: emojiPattern)
-        mutArr.appendContentsOf(emojis)
-        mutArr.appendContentsOf(noemojis)
-        mutArr.sortInPlace { (obj1, obj2) -> Bool in
+        mutArr.append(contentsOf: emojis)
+        mutArr.append(contentsOf: noemojis)
+        mutArr.sort { (obj1, obj2) -> Bool in
             if obj1.range.location < obj2.range.location {
                 return true
             }
@@ -141,13 +141,13 @@ class HWRichTextView: UIView,UITextViewDelegate {
         let attrM = NSMutableAttributedString()
         for matchRes in mutArr {
             let attrStr = NSAttributedString(string: matchRes.cutStr)
-            attrM.appendAttributedString(attrStr)
+            attrM.append(attrStr)
         }
         attrM.addAttribute(NSFontAttributeName, value: font, range: NSMakeRange(0, attrM.length))
         return attrM
     }
     
-    private func attributeStringWithPattern(attributeString:NSMutableAttributedString,pattern:String,niceName:String?) {
+    fileprivate func attributeStringWithPattern(_ attributeString:NSMutableAttributedString,pattern:String,niceName:String?) {
         let strMatch = HWStringMatch.instance
         let matchResults = strMatch.matchStringWithPattern(attributeString.string, pattern: pattern)
         if niceName != nil {
@@ -171,7 +171,7 @@ class HWRichTextView: UIView,UITextViewDelegate {
         }
     }
     
-    private func typeWithPattern(pattern:String) -> HWRichTextType {
+    fileprivate func typeWithPattern(_ pattern:String) -> HWRichTextType {
         if pattern == url {
             return HWRichTextType.url
         }
@@ -184,7 +184,7 @@ class HWRichTextView: UIView,UITextViewDelegate {
         return HWRichTextType.error
     }
     
-    private func clickWithType(type:HWRichTextType,cutStr:String) {
+    fileprivate func clickWithType(_ type:HWRichTextType,cutStr:String) {
         switch type {
         case .url:
             self.delegate?.urlClick(cutStr)
@@ -199,21 +199,22 @@ class HWRichTextView: UIView,UITextViewDelegate {
         }
     }
     //MARK:UITextViewDelegate
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         let range = textView.selectedRange
         //这两句可以得到当前高亮选择的字（就是中文输入状态下，英文被选中的那个状态）
         let selectRange = textView.markedTextRange
-        let position = textView.positionFromPosition((selectRange?.start)!, offset: 0)
+        let position = textView.position(from: (selectRange?.start)!, offset: 0)
         if position != nil {
             textView.attributedText = attributeTextWithText(textView.text)
         }
         textView.selectedRange = range
     }
     //MARK:富文本区域点击
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
-        let point = (touches as NSSet).anyObject()?.locationInView(self)
-        let textRange = textView.characterRangeAtPoint(point!)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        let point = ((touches as NSSet).anyObject() as! UITouch).location(in: self)
+        
+        let textRange = textView.characterRange(at: point)
         textView.selectedTextRange = textRange
         let range = textView.selectedRange
         for matchResult in selectable {
@@ -222,7 +223,7 @@ class HWRichTextView: UIView,UITextViewDelegate {
             if judge == true {
                 textView.selectedRange = matchResult.range
                 type = matchResult.type
-                let rects = textView.selectionRectsForRange(textView.selectedTextRange!)
+                let rects = textView.selectionRects(for: textView.selectedTextRange!)
                 for rect in rects {
                     let back = UIView()
                     back.backgroundColor = highlightColor
@@ -231,7 +232,7 @@ class HWRichTextView: UIView,UITextViewDelegate {
                     back.layer.cornerRadius = 5
                     back.layer.masksToBounds = true
                     back.alpha = 0.5
-                    textView.insertSubview(back, atIndex: 0)
+                    textView.insertSubview(back, at: 0)
                     backgrounds.append(back)
                 }
                 if type != HWRichTextType.error {
@@ -241,13 +242,13 @@ class HWRichTextView: UIView,UITextViewDelegate {
             }
         }
     }
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for view in backgrounds {
             view.removeFromSuperview()
         }
         backgrounds.removeAll()
     }
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-        super.touchesCancelled(touches, withEvent: event)
+    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+        super.touchesCancelled((touches)!, with: event)
     }
 }
